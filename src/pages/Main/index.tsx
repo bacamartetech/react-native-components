@@ -9,11 +9,11 @@ const Main: React.FC = () => {
     const [isPrivate, setIsPrivate] = useState(true);
     const [num, setNum] = useState(2);
     const nums = [
-        { label: 'opção 1', value: 1 },
-        { label: 'opção 2', value: 2 },
-        { label: 'opção 3', value: 3 },
-        { label: 'opção 4', value: 4 },
-        { label: 'opção 5', value: 5 },
+        { label: 'Option #1', value: 1 },
+        { label: 'Option #2', value: 2 },
+        { label: 'Option #3', value: 3 },
+        { label: 'Option #4', value: 4 },
+        { label: 'Option #5', value: 5 },
     ];
 
     return (
@@ -25,8 +25,8 @@ const Main: React.FC = () => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                 }}>
-                <Radio checked={isPrivate} label="Privado" onPress={() => setIsPrivate(true)} />
-                <Radio checked={!isPrivate} label="Público" onPress={() => setIsPrivate(false)} />
+                <Radio checked={isPrivate} label="Privado" color="#286b86" onPress={() => setIsPrivate(true)} />
+                <Radio checked={!isPrivate} label="Público" color="#286b86" onPress={() => setIsPrivate(false)} />
             </View>
 
             <Text style={{ marginTop: 20 }}>Combobox</Text>

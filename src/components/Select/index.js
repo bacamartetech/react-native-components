@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const Select = ({
     options = [],
     value,
-    label = '-- selecione --',
+    label = '-- choose an option --',
     valueExtractor = (i) => i,
     labelExtractor = (i) => i,
     onChange = (item) => {},
@@ -32,44 +32,43 @@ const Select = ({
                     ) : (
                         <Text>{label}</Text>
                     )}
+                    <Icon name="chevron-down" size={24} />
                 </View>
             </TouchableWithoutFeedback>
 
-            {showOptions && (
-                <Modal visible={true} transparent={true}>
-                    <TouchableOpacity
-                        style={{
-                            flex: 1,
-                            padding: 15,
-                            justifyContent: 'center',
-                            backgroundColor: 'rgba(0, 0, 0, 0.4)',
-                        }}
-                        activeOpacity={1}
-                        onPress={() => setShowOptions(false)}>
-                        <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
-                            <View style={styles.listItem}>
-                                <View style={styles.container}>
-                                    <Text>{label}</Text>
-                                </View>
+            <Modal visible={showOptions} transparent={true}>
+                <TouchableOpacity
+                    style={{
+                        flex: 1,
+                        padding: 15,
+                        justifyContent: 'center',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    }}
+                    activeOpacity={1}
+                    onPress={() => setShowOptions(false)}>
+                    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+                        <View style={styles.listItem}>
+                            <View style={styles.container}>
+                                <Text>{label}</Text>
                             </View>
-                            {options.map((item, index) => (
-                                <TouchableOpacity
-                                    key={index}
-                                    activeOpacity={0.85}
-                                    style={styles.listItem}
-                                    onPress={() => handleSelect(item)}>
-                                    {comparator(item) ? (
-                                        <Icon name="check-circle-outline" size={24} />
-                                    ) : (
-                                        <Icon name="checkbox-blank-circle-outline" size={24} />
-                                    )}
-                                    <Text style={{ marginLeft: 10 }}>{labelExtractor(item)}</Text>
-                                </TouchableOpacity>
-                            ))}
-                        </ScrollView>
-                    </TouchableOpacity>
-                </Modal>
-            )}
+                        </View>
+                        {options.map((item, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                activeOpacity={0.85}
+                                style={styles.listItem}
+                                onPress={() => handleSelect(item)}>
+                                {comparator(item) ? (
+                                    <Icon name="check-circle-outline" size={24} />
+                                ) : (
+                                    <Icon name="checkbox-blank-circle-outline" size={24} />
+                                )}
+                                <Text style={{ marginLeft: 10 }}>{labelExtractor(item)}</Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </TouchableOpacity>
+            </Modal>
         </>
     );
 };
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-between',
     },
 
     listItem: {
