@@ -1,32 +1,50 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, ScrollView, TouchableWithoutFeedback, Modal } from 'react-native';
+import {
+    View,
+    TouchableOpacity,
+    Text,
+    StyleSheet,
+    ScrollView,
+    TouchableWithoutFeedback,
+    Modal,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Select = ({
+type SelectProps = {
+    options: any[];
+    value: any;
+    label: string;
+    valueExtractor(option: any): any;
+    labelExtractor(option: any): any;
+    onChange(option: any): void;
+};
+
+const Select: React.FC<SelectProps> = ({
     options = [],
-    value,
+    value = null,
     label = '-- choose an option --',
-    valueExtractor = (i) => i,
-    labelExtractor = (i) => i,
-    onChange = (item) => {},
+    valueExtractor = (option) => option,
+    labelExtractor = (option) => option,
+    onChange = () => {},
 }) => {
     const [showOptions, setShowOptions] = useState(false);
 
-    function handleSelect(item) {
-        const _item = valueExtractor(item);
+    function handleSelect(option: any) {
+        const _option = valueExtractor(option);
 
-        onChange(_item);
+        onChange(_option);
         setShowOptions(false);
     }
 
-    function comparator(item) {
-        return valueExtractor(item) === value;
+    function comparator(option: any) {
+        return valueExtractor(option) === value;
     }
 
     return (
         <>
-            <TouchableWithoutFeedback onPress={() => setShowOptions(!showOptions)}>
-                <View style={styles.container}>
+            <TouchableWithoutFeedback
+                onPress={() => setShowOptions(!showOptions)}>
+                <View style={styles.label}>
                     {options.find(comparator) ? (
                         <Text>{labelExtractor(options.find(comparator))}</Text>
                     ) : (
@@ -38,20 +56,20 @@ const Select = ({
 
             <Modal visible={showOptions} transparent={true}>
                 <TouchableOpacity
-                    style={{
-                        flex: 1,
-                        padding: 15,
-                        justifyContent: 'center',
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                    }}
+                    style={styles.overlay}
                     activeOpacity={1}
                     onPress={() => setShowOptions(false)}>
-                    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+                    <ScrollView
+                        contentContainerStyle={{
+                            flexGrow: 1,
+                            justifyContent: 'center',
+                        }}>
                         <View style={styles.listItem}>
-                            <View style={styles.container}>
+                            <View style={styles.label}>
                                 <Text>{label}</Text>
                             </View>
                         </View>
+
                         {options.map((item, index) => (
                             <TouchableOpacity
                                 key={index}
@@ -59,11 +77,19 @@ const Select = ({
                                 style={styles.listItem}
                                 onPress={() => handleSelect(item)}>
                                 {comparator(item) ? (
-                                    <Icon name="check-circle-outline" size={24} />
+                                    <Icon
+                                        name="check-circle-outline"
+                                        size={24}
+                                    />
                                 ) : (
-                                    <Icon name="checkbox-blank-circle-outline" size={24} />
+                                    <Icon
+                                        name="checkbox-blank-circle-outline"
+                                        size={24}
+                                    />
                                 )}
-                                <Text style={{ marginLeft: 10 }}>{labelExtractor(item)}</Text>
+                                <Text style={{ marginLeft: 10 }}>
+                                    {labelExtractor(item)}
+                                </Text>
                             </TouchableOpacity>
                         ))}
                     </ScrollView>
@@ -74,7 +100,7 @@ const Select = ({
 };
 
 const styles = StyleSheet.create({
-    container: {
+    label: {
         height: 50,
         backgroundColor: '#ffffff',
         borderRadius: 2,
@@ -82,6 +108,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+    },
+
+    overlay: {
+        flex: 1,
+        padding: 15,
+        justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
 
     listItem: {

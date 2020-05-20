@@ -47,15 +47,15 @@ export default App;
 
 #### Props
 
-| Property        | Default Value | Description |
-|-----------------|:-------------:|-------------|
-| label           | ''            | Set button text                                |
-| checked         | false         | Set button visual state                        |
-| color           | '#555555'     | Set colors (border, background, text and icon) |
-| onPress         | () => {}      | Action triggered when component is clicked     |
-| buttonStyle     | {}            | Override button styles                         |
-| buttonIconStyle | {}            | Override button icon styles                    |
-| buttonTextStyle | {}            | Override button text styles                    |
+| Property        | Default Value | Description                                    |
+| --------------- | :-----------: | ---------------------------------------------- |
+| label           |      ''       | Set button text                                |
+| checked         |     false     | Set button visual state                        |
+| color           |   '#555555'   | Set colors (border, background, text and icon) |
+| onPress         |   () => {}    | Action triggered when component is clicked     |
+| buttonStyle     |      {}       | Override button styles                         |
+| buttonIconStyle |      {}       | Override button icon styles                    |
+| buttonTextStyle |      {}       | Override button text styles                    |
 
 ---
 
@@ -93,11 +93,11 @@ export default App;
 
 #### Props
 
-| Property        | Default Value            | Description                                                           |
-|-----------------|:------------------------:|-----------------------------------------------------------------------|
-| label           | '-- choose an option --' | Set button unselected state text                                      |
-| options         | []                       | The options array that will populate component options                |
-| value           | ''                       | Set selected option                                                   |
-| valueExtractor  | (item) => item           | Function to get the property of the item that should be used as value |
-| labelExtractor  | (item) => item           | Function to get the property of the item that should be used as label |
-| onChange        | (item) => {}             | Action triggered when selected value changes                          |
+| Property       |      Default Value       | Description                                                           |
+| -------------- | :----------------------: | --------------------------------------------------------------------- |
+| label          | '-- choose an option --' | Set button unselected state text                                      |
+| options        |            []            | The options array that will populate component options                |
+| value          |            ''            | Set selected option                                                   |
+| valueExtractor |      (item) => item      | Function to get the property of the item that should be used as value |
+| labelExtractor |      (item) => item      | Function to get the property of the item that should be used as label |
+| onChange       |       (item) => {}       | Action triggered when selected value changes                          |
